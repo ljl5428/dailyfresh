@@ -140,7 +140,7 @@ class UserInfoView(LoginRequiredMixin, View):
             'address': address,
             'page': 'user'
         }
-
+        print(12312312)
         return render(request, 'user_center_info.html', context)
 
 
@@ -165,15 +165,10 @@ class AddressView(LoginRequiredMixin, View):
         addr = request.POST.get('addr')
         zip_code = request.POST.get('zip_code')
         phone = request.POST.get('phone')
-        print(receiver)
-        print(addr)
-        print(zip_code)
-        print(phone)
-        if not all([receiver, addr, phone]):
-            return render(request, 'user_center_site.html', {'errmsg': '参数不完整'})
-
         user = request.user
         address = Address.objects.get_default_address(user)
+        if not all([receiver, addr, phone]):
+            return render(request, 'user_center_site.html', {'errmsg': '参数不完整','address': address})
 
         if address:
             Address.objects.filter(is_default=True).update(is_default=False)
@@ -192,3 +187,8 @@ class AddressView(LoginRequiredMixin, View):
 
         # 返回应答, 刷新地址页面
         return redirect(reverse('user:address'))  # get
+
+
+class IndexView(View):
+    def get(self, request):
+        return render(request, 'index.html')
