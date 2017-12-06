@@ -131,10 +131,15 @@ CACHES = {
     }
 }
 
-# 设置session存储在缓存中
+# 设置session存储在缓存
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 # 指定登录的url地址
 LOGIN_URL='/user/login'
 
+# 指定fdfs客户端配置文件的路径
+FDFS_CLIENT_CONF = './utils/fdfs/client.conf'
+
+# 指定fdfs服务器nginx服务的地址
+FDFS_NGINX_URL = 'http://192.168.159.130:8888/'
